@@ -2,7 +2,8 @@ import postcss from'postcss';
 
 import container from "./src/plugins/container";
 import flex from "./src/plugins/flex";
-import row from "./src/plugins/row";
+import grid from "./src/plugins/grid";
+import item from "./src/plugins/item";
 
 export default postcss.plugin('postcss-layouts', function (options) {
 	options = options || {};
@@ -29,8 +30,7 @@ export default postcss.plugin('postcss-layouts', function (options) {
 					64: '64px',
 				};
 
-				const rules = [...container(screens, gaps), ...flex(screens), ...row(screens)];
-				//const rules = [];
+				const rules = [...container(screens, gaps), ...flex(screens), ...grid(screens), ...item(screens)];
 
 				rules.forEach((rule) => {
 					atRule.parent.insertBefore(atRule, rule);
