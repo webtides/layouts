@@ -1,7 +1,7 @@
 {
   "name": "@webtides/layouts",
   "version": "0.1.0",
-  "description": "Declarative layout elements for CSS & HTML",
+  "description": "Declarative layout elements for HTML & CSS",
   "homepage": "https://github.com/webtides/layouts#readme",
   "repository": {
     "type": "git",
