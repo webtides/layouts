@@ -33,26 +33,18 @@ Container layout:
 
 ```html
 <body>
-    <container gap="16">
-        Centered container with padding left & right and a max-width
+    <container gap="16" width="fluid|contained">
+        Centered container with padding left & right and 100% width or a max-width
     </container>
 </body>
 ```
 
-```html
-<body>
-    <container gap="16" width="fluid">
-        Centered container with padding left & right and 100% width
-    </container>
-</body>
-```
-
-Flex layout (horizontal):
+Flex layout:
 > Standard flex layout with flex-direction=row, align-items=center and justify-content=space-between
 
 ```html
 <body>
-    <flex align="center" justify="between">
+    <flex direction="row|col" align="center" justify="between">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -60,28 +52,17 @@ Flex layout (horizontal):
 </body>
 ```
 
-Flex layout (vertical):
+Grid layout:
+> Grid layout with one column on mobile and three columns starting from tablet viewports, and a gap of 16px. The second item will occupy 2 columns, and the last item will be shown first.
 
 ```html
 <body>
-    <flex direction="col">
+    <grid cols="1 md:3" gap="16">
         <item>1</item>
-        <item>2</item>
+        <item cols="2">2</item>
         <item>3</item>
-    </flex>
-</body>
-```
-
-Row layout:
-
-```html
-<body>
-    <row gap="16">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </row>
+        <item order="first">4</item>
+    </grid>
 </body>
 ```
 
