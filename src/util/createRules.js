@@ -1,5 +1,5 @@
-import createRule from "./createRule";
+import createRule from './createRule';
 
 export default function createRules(rules) {
-    return rules.map((rule) => createRule(rule));
+	return rules.map((rule) => createRule(rule));
 }

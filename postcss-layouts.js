@@ -1,9 +1,9 @@
-import postcss from'postcss';
+import postcss from 'postcss';
 
-import container from "./src/plugins/container";
-import flex from "./src/plugins/flex";
-import grid from "./src/plugins/grid";
-import item from "./src/plugins/item";
+import container from './src/plugins/container';
+import flex from './src/plugins/flex';
+import grid from './src/plugins/grid';
+import item from './src/plugins/item';
 
 export default postcss.plugin('postcss-layouts', (options = {}) => {
 	const config = {
@@ -23,17 +23,12 @@ export default postcss.plugin('postcss-layouts', (options = {}) => {
 			64: '64px',
 		},
 		...options,
-	}
+	};
 
 	return (css) => {
 		css.walkAtRules((atRule) => {
 			if (atRule.name === 'layouts') {
-				const rules = [
-					...container(config),
-					...flex(config),
-					...grid(config),
-					...item(config),
-				];
+				const rules = [...container(config), ...flex(config), ...grid(config), ...item(config)];
 
 				rules.forEach((rule) => {
 					atRule.parent.insertBefore(atRule, rule);

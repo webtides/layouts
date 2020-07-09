@@ -6,10 +6,10 @@ Declarative layout elements for HTML & CSS
 
 `layouts` encapsulates some of the most used building blocks for web development into a set of declarative and expressive HTML tags and attributes.
 
-* `layouts` is pure CSS - no JavaScript
-* `layouts` is easily (and highly) customisable
-* `layouts` is easy to drop in next to any other CSS framework
-* `layouts` is compatible with every JavaScript framework (it's just HTML & CSS)
+-   `layouts` is pure CSS - no JavaScript
+-   `layouts` is easily (and highly) customisable
+-   `layouts` is easy to drop in next to any other CSS framework
+-   `layouts` is compatible with every JavaScript framework (it's just HTML & CSS)
 
 ## How to use
 
@@ -19,9 +19,9 @@ Declarative layout elements for HTML & CSS
 
 ```sh
 <link rel="stylesheet" href="https://unpkg.com/@webtides/layouts@latest/css/layouts.css"/>
-``` 
+```
 
-or via npm: 
+or via npm:
 
 ```sh
 npm install @webtides/layouts
@@ -40,6 +40,7 @@ Container layout:
 ```
 
 Flex layout:
+
 > Standard flex layout with flex-direction=row, align-items=center and justify-content=space-between
 
 ```html
@@ -53,6 +54,7 @@ Flex layout:
 ```
 
 Grid layout:
+
 > Grid layout with one column on mobile and three columns starting from tablet viewports, and a gap of 16px. The second item will occupy 2 columns, and the last item will be shown first.
 
 ```html
@@ -74,24 +76,22 @@ For detailed documentation see the [Docs](docs/README.md).
 
 ### We use eslint and prettier to ensure good code quality
 
-Prettier will run automatically when staging files via `git`.
-To run the linter manually - simply run `npm run lint`.
+Prettier will run automatically when staging files via `git`. To run the linter manually - simply run `npm run lint`.
 
 ### Git Branching
 
 We use a trunk-based development workflow.
 
-> In the trunk-based development model, all developers work on a single branch with open access to it. Often it’s simply the master branch. They commit code to it and run it. It’s super simple.
-> In some cases, they create short-lived feature branches. Once code on their branch compiles and passes all tests, they merge it straight to master. It ensures that development is truly continuous and prevents developers from creating merge conflicts that are difficult to resolve.
+> In the trunk-based development model, all developers work on a single branch with open access to it. Often it’s simply the master branch. They commit code to it and run it. It’s super simple. In some cases, they create short-lived feature branches. Once code on their branch compiles and passes all tests, they merge it straight to master. It ensures that development is truly continuous and prevents developers from creating merge conflicts that are difficult to resolve.
 
 As a Release is complete the master branch will be tagged with the new release version.
 
-### Pull Requests 
+### Pull Requests
 
-Pull requests should take place whenever a: 
+Pull requests should take place whenever a:
 
-- FEATURE is about to be finished
-- RELEASE is about to be finished   
+-   FEATURE is about to be finished
+-   RELEASE is about to be finished
 
 When all Reviewers approved a PR the feature/release may be finished locally and pushed to the remote
 
