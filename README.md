@@ -32,11 +32,9 @@ npm install @webtides/layouts
 Container layout:
 
 ```html
-<body>
-    <container gap="16" width="fluid|contained">
-        Centered container with padding left & right and 100% width or a max-width
-    </container>
-</body>
+<container gap="16" width="fluid|contained">
+    Centered container with padding left & right and 100% width or a max-width
+</container>
 ```
 
 Flex layout:
@@ -44,13 +42,11 @@ Flex layout:
 > Standard flex layout with flex-direction=row, align-items=center and justify-content=space-between
 
 ```html
-<body>
-    <flex direction="row|col" align="center" justify="between">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </flex>
-</body>
+<flex direction="row|col" align="center" justify="between">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</flex>
 ```
 
 Grid layout:
@@ -58,14 +54,12 @@ Grid layout:
 > Grid layout with one column on mobile and three columns starting from tablet viewports, and a gap of 16px. The second item will occupy 2 columns, and the last item will be shown first.
 
 ```html
-<body>
-    <grid cols="1 md:3" gap="16">
-        <item>1</item>
-        <item cols="2">2</item>
-        <item>3</item>
-        <item order="first">4</item>
-    </grid>
-</body>
+<grid cols="1 md:3" gap="16">
+    <item>1</item>
+    <item cols="2">2</item>
+    <item>3</item>
+    <item order="first">4</item>
+</grid>
 ```
 
 ## Documentation
