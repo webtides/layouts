@@ -3,7 +3,7 @@ import createRule from "../util/createRule";
 import createRules from "../util/createRules";
 import rulesFromDefinitions from "../util/rulesFromDefinitions";
 
-export default function layoutContainer(config) {
+export default (config) => {
     const definitions = {
         gap: {},
         width: {

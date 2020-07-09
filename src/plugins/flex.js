@@ -2,7 +2,7 @@ import createMediaAtRule from "../util/createMediaAtRule";
 import createRules from "../util/createRules";
 import rulesFromDefinitions from "../util/rulesFromDefinitions";
 
-export default function layoutFlex(config) {
+export default (config) => {
     const definitions = {
         direction: {
             col: { prop: 'flex-direction', value: 'column' },

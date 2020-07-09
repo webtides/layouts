@@ -2,7 +2,7 @@ import createMediaAtRule from "../util/createMediaAtRule";
 import createRules from "../util/createRules";
 import rulesFromDefinitions from "../util/rulesFromDefinitions";
 
-export default function layoutGrid(config) {
+export default (config) => {
     const definitions = {
         order: {
             first: { properties: [{ prop: 'order', value: '-9999' }] },
