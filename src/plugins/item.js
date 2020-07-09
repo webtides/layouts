@@ -2,7 +2,7 @@ import createMediaAtRule from "../util/createMediaAtRule";
 import createRules from "../util/createRules";
 import rulesFromDefinitions from "../util/rulesFromDefinitions";
 
-export default function layoutGrid(screens) {
+export default function layoutGrid(config) {
     const definitions = {
         order: {
             first: { properties: [{ prop: 'order', value: '-9999' }] },
@@ -58,7 +58,7 @@ export default function layoutGrid(screens) {
         ...rulesFromDefinitions(definitions, 'item'),
     ];
 
-    for (let [name, size] of Object.entries(screens)) {
+    for (let [name, size] of Object.entries(config.screens)) {
         const mediaAtRule = createMediaAtRule('min-width', size);
         mediaAtRule.append(...rulesFromDefinitions(definitions, 'item', name));
         rules.push(mediaAtRule);

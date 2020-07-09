@@ -3,28 +3,9 @@ import createRule from "../util/createRule";
 import createRules from "../util/createRules";
 import rulesFromDefinitions from "../util/rulesFromDefinitions";
 
-export default function layoutContainer(screens, gaps) {
+export default function layoutContainer(config) {
     const definitions = {
-        gap: {
-            0: {
-                properties: [
-                    { prop: 'padding-left', value: '0' },
-                    { prop: 'padding-right', value: '0' },
-                ],
-            },
-            16: {
-                properties: [
-                    { prop: 'padding-left', value: '16px' },
-                    { prop: 'padding-right', value: '16px' },
-                ],
-            },
-            32: {
-                properties: [
-                    { prop: 'padding-left', value: '32px' },
-                    { prop: 'padding-right', value: '32px' },
-                ],
-            },
-        },
+        gap: {},
         width: {
             fluid: {
                 properties: [
@@ -33,6 +14,15 @@ export default function layoutContainer(screens, gaps) {
             }
         },
     };
+
+    for (let [key, value] of Object.entries(config.gap)) {
+        definitions.gap[key] = {
+            properties: [
+                { prop: 'padding-left', value: value },
+                { prop: 'padding-right', value: value },
+            ],
+        }
+    }
 
     const rules = [
         ...createRules([
@@ -50,7 +40,7 @@ export default function layoutContainer(screens, gaps) {
         ...rulesFromDefinitions(definitions, 'container'),
     ];
 
-    for (let [name, size] of Object.entries(screens)) {
+    for (let [name, size] of Object.entries(config.screens)) {
         const mediaAtRule = createMediaAtRule('min-width', size);
         mediaAtRule.append(createRule({ selector: 'container', prop: 'max-width', value: size }));
         rules.push(mediaAtRule);

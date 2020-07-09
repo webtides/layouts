@@ -2,7 +2,7 @@ import createMediaAtRule from "../util/createMediaAtRule";
 import createRules from "../util/createRules";
 import rulesFromDefinitions from "../util/rulesFromDefinitions";
 
-export default function layoutFlex(screens) {
+export default function layoutFlex(config) {
     const definitions = {
         direction: {
             col: { prop: 'flex-direction', value: 'column' },
@@ -33,7 +33,7 @@ export default function layoutFlex(screens) {
         ...rulesFromDefinitions(definitions, 'flex'),
     ];
 
-    for (let [name, size] of Object.entries(screens)) {
+    for (let [name, size] of Object.entries(config.screens)) {
         const mediaAtRule = createMediaAtRule('min-width', size);
         mediaAtRule.append(...rulesFromDefinitions(definitions, 'flex', name));
         rules.push(mediaAtRule);

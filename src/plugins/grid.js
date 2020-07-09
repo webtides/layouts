@@ -2,8 +2,9 @@ import createMediaAtRule from "../util/createMediaAtRule";
 import createRules from "../util/createRules";
 import rulesFromDefinitions from "../util/rulesFromDefinitions";
 
-export default function layoutGrid(screens) {
+export default function layoutGrid(config) {
     const definitions = {
+        gap: {},
         cols: {
             1: { properties: [{ prop: 'grid-template-columns', value: 'repeat(1, 1fr)' }] },
             2: { properties: [{ prop: 'grid-template-columns', value: 'repeat(2, 1fr)' }] },
@@ -18,43 +19,15 @@ export default function layoutGrid(screens) {
             11: { properties: [{ prop: 'grid-template-columns', value: 'repeat(11, 1fr)' }] },
             12: { properties: [{ prop: 'grid-template-columns', value: 'repeat(12, 1fr)' }] },
         },
-        // rows: {
-        //     1: { properties: [{ prop: 'grid-row', value: 'span 1' }] },
-        //     2: { properties: [{ prop: 'grid-row', value: 'span 2' }] },
-        //     3: { properties: [{ prop: 'grid-row', value: 'span 3' }] },
-        //     4: { properties: [{ prop: 'grid-row', value: 'span 4' }] },
-        //     5: { properties: [{ prop: 'grid-row', value: 'span 5' }] },
-        //     6: { properties: [{ prop: 'grid-row', value: 'span 6' }] },
-        //     7: { properties: [{ prop: 'grid-row', value: 'span 7' }] },
-        //     8: { properties: [{ prop: 'grid-row', value: 'span 8' }] },
-        //     9: { properties: [{ prop: 'grid-row', value: 'span 9' }] },
-        //     10: { properties: [{ prop: 'grid-row', value: 'span 10' }] },
-        //     11: { properties: [{ prop: 'grid-row', value: 'span 11' }] },
-        //     12: { properties: [{ prop: 'grid-row', value: 'span 12' }] },
-        // },
-        gap: {
-            0: {
-                properties: [
-                    { prop: 'grid-gap', value: '0' },
-                ],
-            },
-            8: {
-                properties: [
-                    { prop: 'grid-gap', value: '8px' },
-                ],
-            },
-            16: {
-                properties: [
-                    { prop: 'grid-gap', value: '16px' },
-                ],
-            },
-            32: {
-                properties: [
-                    { prop: 'grid-gap', value: '32px' },
-                ],
-            },
-        },
     };
+
+    for (let [key, value] of Object.entries(config.gap)) {
+        definitions.gap[key] = {
+            properties: [
+                { prop: 'grid-gap', value: value },
+            ],
+        }
+    }
 
     const rules = [
         ...createRules([
@@ -63,7 +36,7 @@ export default function layoutGrid(screens) {
         ...rulesFromDefinitions(definitions, 'grid'),
     ];
 
-    for (let [name, size] of Object.entries(screens)) {
+    for (let [name, size] of Object.entries(config.screens)) {
         const mediaAtRule = createMediaAtRule('min-width', size);
         mediaAtRule.append(...rulesFromDefinitions(definitions, 'grid', name));
         rules.push(mediaAtRule);
