@@ -15,6 +15,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.2.0] - 2020-07-22
+
+### Added
+* `plugins` map to config with a default `selector` defined for each plugin
+
 ## [0.1.0] - 2020-07-09
 
 * initial release
