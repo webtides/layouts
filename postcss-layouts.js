@@ -22,6 +22,12 @@ export default postcss.plugin('postcss-layouts', (options = {}) => {
 			32: '32px',
 			64: '64px',
 		},
+		plugins: {
+			container: { selector: 'container' },
+			flex: { selector: 'flex' },
+			grid: { selector: 'grid' },
+			item: { selector: 'item' },
+		},
 		...options,
 	};
 

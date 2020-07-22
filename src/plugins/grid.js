@@ -3,6 +3,8 @@ import createRules from '../util/createRules';
 import rulesFromDefinitions from '../util/rulesFromDefinitions';
 
 export default (config) => {
+	const selector = config.plugins && config.plugins.grid ? config.plugins.grid.selector : 'grid';
+
 	const definitions = {
 		gap: {},
 		cols: {
@@ -28,13 +30,13 @@ export default (config) => {
 	}
 
 	const rules = [
-		...createRules([{ selector: 'grid', prop: 'display', value: 'grid' }]),
-		...rulesFromDefinitions(definitions, 'grid'),
+		...createRules([{ selector: selector, prop: 'display', value: 'grid' }]),
+		...rulesFromDefinitions(definitions, selector),
 	];
 
 	for (let [name, size] of Object.entries(config.screens)) {
 		const mediaAtRule = createMediaAtRule('min-width', size);
-		mediaAtRule.append(...rulesFromDefinitions(definitions, 'grid', name));
+		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name));
 		rules.push(mediaAtRule);
 	}
 

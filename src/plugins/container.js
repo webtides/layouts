@@ -4,6 +4,8 @@ import createRules from '../util/createRules';
 import rulesFromDefinitions from '../util/rulesFromDefinitions';
 
 export default (config) => {
+	const selector = config.plugins && config.plugins.container ? config.plugins.container.selector : 'container';
+
 	const definitions = {
 		gap: {},
 		width: {
@@ -25,7 +27,7 @@ export default (config) => {
 	const rules = [
 		...createRules([
 			{
-				selector: 'container',
+				selector: selector,
 				properties: [
 					{ prop: 'display', value: 'block' },
 					{ prop: 'margin-left', value: 'auto' },
@@ -35,12 +37,12 @@ export default (config) => {
 				],
 			},
 		]),
-		...rulesFromDefinitions(definitions, 'container'),
+		...rulesFromDefinitions(definitions, selector),
 	];
 
 	for (let [name, size] of Object.entries(config.screens)) {
 		const mediaAtRule = createMediaAtRule('min-width', size);
-		mediaAtRule.append(createRule({ selector: 'container', prop: 'max-width', value: size }));
+		mediaAtRule.append(createRule({ selector: selector, prop: 'max-width', value: size }));
 		rules.push(mediaAtRule);
 	}
 

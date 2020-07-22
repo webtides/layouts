@@ -3,6 +3,8 @@ import createRules from '../util/createRules';
 import rulesFromDefinitions from '../util/rulesFromDefinitions';
 
 export default (config) => {
+	const selector = config.plugins && config.plugins.flex ? config.plugins.flex.selector : 'flex';
+
 	const definitions = {
 		direction: {
 			col: { prop: 'flex-direction', value: 'column' },
@@ -26,16 +28,16 @@ export default (config) => {
 
 	const rules = [
 		...createRules([
-			{ selector: 'flex', prop: 'display', value: 'flex' },
-			{ selector: 'flex', prop: 'align-items', value: 'center' },
-			{ selector: 'flex', prop: 'justify-content', value: 'space-between' },
+			{ selector: selector, prop: 'display', value: 'flex' },
+			{ selector: selector, prop: 'align-items', value: 'center' },
+			{ selector: selector, prop: 'justify-content', value: 'space-between' },
 		]),
-		...rulesFromDefinitions(definitions, 'flex'),
+		...rulesFromDefinitions(definitions, selector),
 	];
 
 	for (let [name, size] of Object.entries(config.screens)) {
 		const mediaAtRule = createMediaAtRule('min-width', size);
-		mediaAtRule.append(...rulesFromDefinitions(definitions, 'flex', name));
+		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name));
 		rules.push(mediaAtRule);
 	}
 
