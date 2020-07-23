@@ -15,6 +15,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.3.0] - 2020-07-23
+
+### Added
+* `defaults` map to config for each plugin to configure default values for viewports
+
 ## [0.2.0] - 2020-07-22
 
 ### Added

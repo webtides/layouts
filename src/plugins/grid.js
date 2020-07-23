@@ -1,10 +1,25 @@
 import createMediaAtRule from '../util/createMediaAtRule';
 import createRules from '../util/createRules';
 import rulesFromDefinitions from '../util/rulesFromDefinitions';
+import createRule from '../util/createRule';
 
 export default (config) => {
-	const selector = config.plugins && config.plugins.grid ? config.plugins.grid.selector : 'grid';
+	const pluginConfig = config.plugins && config.plugins.grid ? config.plugins.grid : undefined;
+	const selector = pluginConfig ? pluginConfig.selector : 'grid';
 
+	// default rules for plugin
+	const defaultRules = [{ prop: 'display', value: 'grid' }];
+
+	// check if default gap is defined in plugin config
+	if (pluginConfig && pluginConfig.defaults) {
+		const defaults = pluginConfig.defaults;
+		if (defaults.gap && defaults.gap.default) {
+			const defaultValue = defaults.gap.default;
+			defaultRules.push({ prop: 'grid-gap', value: defaultValue });
+		}
+	}
+
+	// all possible attributes/modifiers for plugin
 	const definitions = {
 		gap: {},
 		cols: {
@@ -23,21 +38,45 @@ export default (config) => {
 		},
 	};
 
+	// add gap rules to definitions
 	for (let [key, value] of Object.entries(config.gap)) {
 		definitions.gap[key] = {
 			properties: [{ prop: 'grid-gap', value: value }],
 		};
 	}
 
+	// create default rules
 	const rules = [
-		...createRules([{ selector: selector, prop: 'display', value: 'grid' }]),
+		...createRules([
+			{
+				selector: selector,
+				properties: defaultRules,
+			},
+		]),
 		...rulesFromDefinitions(definitions, selector),
 	];
 
+	// create responsive rules for definitions
 	for (let [name, size] of Object.entries(config.screens)) {
 		const mediaAtRule = createMediaAtRule('min-width', size);
 		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name));
 		rules.push(mediaAtRule);
+	}
+
+	// create responsive rules for defaults
+	if (pluginConfig && pluginConfig.defaults) {
+		const defaults = pluginConfig.defaults;
+		if (defaults.gap) {
+			for (let [viewport, value] of Object.entries(defaults.gap)) {
+				if (viewport === 'default') continue;
+
+				// either viewport is a key from config.screens map - otherwise assume viewport is size in px
+				const size = config.screens[viewport] || viewport;
+				const mediaAtRule = createMediaAtRule('min-width', size);
+				mediaAtRule.append(createRule({ selector: selector, prop: 'grid-gap', value: value }));
+				rules.push(mediaAtRule);
+			}
+		}
 	}
 
 	return rules;

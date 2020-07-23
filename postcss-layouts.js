@@ -23,9 +23,27 @@ export default postcss.plugin('postcss-layouts', (options = {}) => {
 			64: '64px',
 		},
 		plugins: {
-			container: { selector: 'container' },
+			container: {
+				selector: 'container',
+				defaults: {
+					gap: {
+						default: '16px',
+						// md: '24px',
+						// xl: '32px',
+					},
+				},
+			},
 			flex: { selector: 'flex' },
-			grid: { selector: 'grid' },
+			grid: {
+				selector: 'grid',
+				defaults: {
+					gap: {
+						default: '16px',
+						// md: '24px',
+						// xl: '32px',
+					},
+				},
+			},
 			item: { selector: 'item' },
 		},
 		...options,
