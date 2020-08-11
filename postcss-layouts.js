@@ -22,9 +22,6 @@ export default postcss.plugin('postcss-layouts', (options = {}) => {
 			32: '32px',
 			64: '64px',
 		},
-		reset: {
-			0: 'auto',
-		},
 		plugins: {
 			container: {
 				selector: 'container',
@@ -32,10 +29,6 @@ export default postcss.plugin('postcss-layouts', (options = {}) => {
 					gap: {
 						default: '16px',
 						// md: '24px',
-						// xl: '32px',
-					},
-					reset: {
-						default: '-16px',
 						// xl: '32px',
 					},
 				},

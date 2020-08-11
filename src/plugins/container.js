@@ -22,12 +22,6 @@ export default (config) => {
 			defaultRules.push({ prop: 'padding-left', value: defaultGap });
 			defaultRules.push({ prop: 'padding-right', value: defaultGap });
 		}
-
-		if (defaults.reset && defaults.reset.default) {
-			const defaultReset = defaults.reset.default;
-			defaultRules.push({ prop: 'margin-left', value: defaultReset });
-			defaultRules.push({ prop: 'margin-right', value: defaultReset });
-		}
 	}
 
 	// all possible attributes/modifiers for plugin
@@ -52,11 +46,11 @@ export default (config) => {
 	}
 
 	// add reset rules to definitions
-	for (let [key, value] of Object.entries(config.reset)) {
+	for (let [key, value] of Object.entries(config.gap)) {
 		definitions.reset[key] = {
 			properties: [
-				{ prop: 'margin-left', value: value },
-				{ prop: 'margin-right', value: value },
+				{ prop: 'margin-left', value: '-' + value },
+				{ prop: 'margin-right', value: '-' + value },
 			],
 		};
 	}
@@ -68,16 +62,21 @@ export default (config) => {
 				selector: selector,
 				properties: defaultRules,
 			},
+			{
+				selector: selector + '[reset]',
+				properties: [{ prop: 'width', value: 'auto' }],
+			},
 		]),
 		...rulesFromDefinitions(definitions, selector),
 	];
 
 	// create responsive rules for definitions
-	for (let [name, size] of Object.entries(config.screens)) {
+	// TODO: adds max.width to config.
+	/*for (let [name, size] of Object.entries(config.screens)) {
 		const mediaAtRule = createMediaAtRule('min-width', size);
 		mediaAtRule.append(createRule({ selector: selector, prop: 'max-width', value: size }));
 		rules.push(mediaAtRule);
-	}
+	}*/
 
 	// create responsive rules for definitions with modifier
 	for (let [name, size] of Object.entries(config.screens)) {
