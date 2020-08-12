@@ -15,6 +15,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.4.0] - 2020-08-12
+
+### Added
+* `reset` attribute to container layout for resetting a previous container padding
+
 ## [0.3.0] - 2020-07-23
 
 ### Added
