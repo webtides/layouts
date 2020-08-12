@@ -5,7 +5,6 @@ import rulesFromDefinitions from '../util/rulesFromDefinitions';
 
 export default (config) => {
 	const selector = config.plugins && config.plugins.container ? config.plugins.container.selector : 'container';
-
 	// default rules for plugin
 	const defaultRules = [
 		{ prop: 'display', value: 'block' },
@@ -15,7 +14,7 @@ export default (config) => {
 		{ prop: 'max-width', value: '1440px' },
 	];
 
-	// check if default gap is defined in config via plugins
+	// check if default gap and reset is defined in config via plugins
 	if (config.plugins && config.plugins.container && config.plugins.container.defaults) {
 		const defaults = config.plugins.container.defaults;
 		if (defaults.gap && defaults.gap.default) {
@@ -28,6 +27,7 @@ export default (config) => {
 	// all possible attributes/modifiers for plugin
 	const definitions = {
 		gap: {},
+		reset: {},
 		width: {
 			fluid: {
 				properties: [{ prop: 'max-width', value: '100%' }],
@@ -45,6 +45,16 @@ export default (config) => {
 		};
 	}
 
+	// add reset rules to definitions
+	for (let [key, value] of Object.entries(config.gap)) {
+		definitions.reset[key] = {
+			properties: [
+				{ prop: 'margin-left', value: '-' + value },
+				{ prop: 'margin-right', value: '-' + value },
+			],
+		};
+	}
+
 	// create default rules
 	const rules = [
 		...createRules([
@@ -52,14 +62,26 @@ export default (config) => {
 				selector: selector,
 				properties: defaultRules,
 			},
+			{
+				selector: selector + '[reset]',
+				properties: [{ prop: 'width', value: 'auto' }],
+			},
 		]),
 		...rulesFromDefinitions(definitions, selector),
 	];
 
 	// create responsive rules for definitions
-	for (let [name, size] of Object.entries(config.screens)) {
+	// TODO: adds max.width to config.
+	/*for (let [name, size] of Object.entries(config.screens)) {
 		const mediaAtRule = createMediaAtRule('min-width', size);
 		mediaAtRule.append(createRule({ selector: selector, prop: 'max-width', value: size }));
+		rules.push(mediaAtRule);
+	}*/
+
+	// create responsive rules for definitions with modifier
+	for (let [name, size] of Object.entries(config.screens)) {
+		const mediaAtRule = createMediaAtRule('min-width', size);
+		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name));
 		rules.push(mediaAtRule);
 	}
 
@@ -75,6 +97,19 @@ export default (config) => {
 				const mediaAtRule = createMediaAtRule('min-width', size);
 				mediaAtRule.append(createRule({ selector: selector, prop: 'padding-left', value: value }));
 				mediaAtRule.append(createRule({ selector: selector, prop: 'padding-right', value: value }));
+				rules.push(mediaAtRule);
+			}
+		}
+
+		if (defaults.reset) {
+			for (let [viewport, value] of Object.entries(defaults.reset)) {
+				if (viewport === 'default') continue;
+
+				// either viewport is a key from config.screens map - otherwise assume viewport is size in px
+				const size = config.screens[viewport] || viewport;
+				const mediaAtRule = createMediaAtRule('min-width', size);
+				mediaAtRule.append(createRule({ selector: selector, prop: 'margin-left', value: value }));
+				mediaAtRule.append(createRule({ selector: selector, prop: 'margin-right', value: value }));
 				rules.push(mediaAtRule);
 			}
 		}
