@@ -84,13 +84,14 @@ export default (config) => {
 		...rulesFromDefinitions(definitions, selector),
 	];
 
-	// create responsive rules for definitions
-	// TODO: adds max.width to config.
-	/*for (let [name, size] of Object.entries(config.screens)) {
-		const mediaAtRule = createMediaAtRule('min-width', size);
-		mediaAtRule.append(createRule({ selector: selector, prop: 'max-width', value: size }));
-		rules.push(mediaAtRule);
-	}*/
+	// should we fix the container's width to the current screen
+	if (pluginConfig.fixWidthToScreen === true) {
+		for (let [name, size] of Object.entries(config.screens)) {
+			const mediaAtRule = createMediaAtRule('min-width', size);
+			mediaAtRule.append(createRule({ selector: selector, prop: 'max-width', value: size }));
+			rules.push(mediaAtRule);
+		}
+	}
 
 	// create responsive rules for definitions with modifier
 	for (let [name, size] of Object.entries(config.screens)) {

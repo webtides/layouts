@@ -26,6 +26,7 @@ export default postcss.plugin('postcss-layouts', (options = {}) => {
 			container: {
 				selector: 'container',
 				center: true,
+				fixWidthToScreen: true,
 				defaults: {
 					gap: {
 						default: '16px',
