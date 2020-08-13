@@ -4,19 +4,25 @@ import createRules from '../util/createRules';
 import rulesFromDefinitions from '../util/rulesFromDefinitions';
 
 export default (config) => {
-	const selector = config.plugins && config.plugins.container ? config.plugins.container.selector : 'container';
+	const pluginConfig = config.plugins && config.plugins.container ? config.plugins.container : {};
+	const selector = pluginConfig ? pluginConfig.selector : 'container';
+
 	// default rules for plugin
 	const defaultRules = [
 		{ prop: 'display', value: 'block' },
-		{ prop: 'margin-left', value: 'auto' },
-		{ prop: 'margin-right', value: 'auto' },
 		{ prop: 'width', value: '100%' },
 		{ prop: 'max-width', value: '1440px' },
 	];
 
-	// check if default gap and reset is defined in config via plugins
-	if (config.plugins && config.plugins.container && config.plugins.container.defaults) {
-		const defaults = config.plugins.container.defaults;
+	// check if container should be centered automatically
+	if (pluginConfig.center === true) {
+		defaultRules.push({ prop: 'margin-left', value: 'auto' });
+		defaultRules.push({ prop: 'margin-right', value: 'auto' });
+	}
+
+	// check if default gap is defined in config via plugins
+	if (pluginConfig && pluginConfig.defaults) {
+		const defaults = pluginConfig.defaults;
 		if (defaults.gap && defaults.gap.default) {
 			const defaultGap = defaults.gap.default;
 			defaultRules.push({ prop: 'padding-left', value: defaultGap });
