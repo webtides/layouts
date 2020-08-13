@@ -15,6 +15,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.5.0] - 2020-08-13
+
+### Added
+* added “full” width option to container layout
+* makes fixing container width to screen size configurable
+* makes the max-width option for the container plugin configurable
+
+### Changed
+* makes center option editable via config for container layout
+
 ## [0.4.0] - 2020-08-12
 
 ### Added
