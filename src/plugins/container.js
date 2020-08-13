@@ -11,7 +11,7 @@ export default (config) => {
 	const defaultRules = [
 		{ prop: 'display', value: 'block' },
 		{ prop: 'width', value: '100%' },
-		{ prop: 'max-width', value: '1440px' },
+		{ prop: 'max-width', value: pluginConfig.maxWidth || '1440px' },
 	];
 
 	// check if container should be centered automatically
@@ -36,7 +36,7 @@ export default (config) => {
 		reset: {},
 		width: {
 			contained: {
-				properties: [{ prop: 'max-width', value: '1440px' }],
+				properties: [{ prop: 'max-width', value: pluginConfig.maxWidth || '1440px' }],
 			},
 			fluid: {
 				properties: [{ prop: 'max-width', value: '100%' }],
