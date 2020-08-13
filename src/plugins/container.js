@@ -44,7 +44,7 @@ export default (config) => {
 			full: {
 				properties: [
 					{ prop: 'width', value: '100vw' },
-					{ prop: 'max-width', value: '100%' },
+					{ prop: 'max-width', value: '100vw' },
 				],
 			},
 		},
@@ -65,6 +65,7 @@ export default (config) => {
 			properties: [
 				{ prop: 'margin-left', value: '-' + value },
 				{ prop: 'margin-right', value: '-' + value },
+				{ prop: 'width', value: `calc(100% + ${value} + ${value})` },
 			],
 		};
 	}
@@ -78,7 +79,7 @@ export default (config) => {
 			},
 			{
 				selector: selector + '[reset]',
-				properties: [{ prop: 'width', value: 'auto' }],
+				properties: [{ prop: 'max-width', value: 'initial' }],
 			},
 		]),
 		...rulesFromDefinitions(definitions, selector),
