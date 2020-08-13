@@ -35,24 +35,32 @@ export default (config) => {
 		gap: {},
 		reset: {},
 		width: {
+			contained: {
+				properties: [{ prop: 'max-width', value: '1440px' }],
+			},
 			fluid: {
 				properties: [{ prop: 'max-width', value: '100%' }],
+			},
+			full: {
+				properties: [
+					{ prop: 'width', value: '100vw' },
+					{ prop: 'max-width', value: '100%' },
+				],
 			},
 		},
 	};
 
-	// add gap rules to definitions
+	// for each gap definition...
 	for (let [key, value] of Object.entries(config.gap)) {
+		// add gap rules to definitions
 		definitions.gap[key] = {
 			properties: [
 				{ prop: 'padding-left', value: value },
 				{ prop: 'padding-right', value: value },
 			],
 		};
-	}
 
-	// add reset rules to definitions
-	for (let [key, value] of Object.entries(config.gap)) {
+		// add reset rules (with negative gap values) to definitions
 		definitions.reset[key] = {
 			properties: [
 				{ prop: 'margin-left', value: '-' + value },
