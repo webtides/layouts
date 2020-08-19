@@ -15,6 +15,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.5.1] - 2020-08-19
+
+### Fixed
+* flex[align] options for "start" and "end"
+* flex[justify] options for "start" and "end"
+* added aliases for flex[align] options -> "start" & "flex-start" and "end" & "flex-end"
+* added aliases for flex[justify] options -> "start" & "flex-start" and "end" & "flex-end"
+
 ## [0.5.0] - 2020-08-13
 
 ### Added
