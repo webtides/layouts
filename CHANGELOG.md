@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.5.2] - 2020-09-29
+
+### Added
+* `rows` definition for the `grid` layout
+* `row-start` and `row-end` definitions for the `item` layout
+
 ## [0.5.1] - 2020-08-19
 
 ### Fixed
