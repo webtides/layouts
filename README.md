@@ -15,16 +15,15 @@ Declarative layout elements for HTML & CSS
 
 #### Installation
 
-`layouts` can be used via CDN:
+create a `.npmrc` file in your project root and add the following line to set the registry for packages in the `@webtides` scope. 
+```sh
+@webtides:registry=https://npm.pkg.github.com/
+```                                                                  
+
+install `@webtides/layouts`
 
 ```sh
-<link rel="stylesheet" href="https://unpkg.com/@webtides/layouts@latest/css/layouts.css"/>
-```
-
-or via npm:
-
-```sh
-npm install @webtides/layouts
+npm install --save @webtides/element-js
 ```
 
 #### Use
@@ -64,30 +63,11 @@ Grid layout:
 
 ## Documentation
 
-For detailed documentation see the [Docs](docs/README.md).
+For detailed documentation see the [docs](docs/README.md).
 
-## Development
+## Contributing & Development
 
-### We use eslint and prettier to ensure good code quality
-
-ESLint & Prettier will run automatically when staging files via `git`.
-
-### Git Branching
-
-We use a trunk-based development workflow.
-
-> In the trunk-based development model, all developers work on a single branch with open access to it. Often it’s simply the `main` branch. They commit code to it and run it. It’s super simple. In some cases, they create short-lived feature branches. Once code on their branch compiles and passes all tests, they merge it straight to `main`. It ensures that development is truly continuous and prevents developers from creating merge conflicts that are difficult to resolve.
-
-As a Release is complete the `main` branch will be tagged with the new release version.
-
-### Pull Requests
-
-Pull requests should take place whenever a:
-
--   FEATURE is about to be finished
--   RELEASE is about to be finished
-
-When all Reviewers approved a PR the feature/release may be finished locally and pushed to the remote
+For contributions and development see [contributing docs](.github/CONTRIBUTING.md)
 
 ## License
 
