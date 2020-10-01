@@ -1,5 +1,7 @@
 # layouts
 
+> IMPORTANT: The layouts are work in progress and subject to major (& breaking) changes until the 1.0 release. Until then, we would encourage everyone to use a pinned version and not rely on semantic versioning.
+
 Declarative layout elements for HTML & CSS
 
 ## Introduction
