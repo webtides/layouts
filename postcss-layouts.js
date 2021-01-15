@@ -1,11 +1,9 @@
-import postcss from 'postcss';
-
 import container from './src/plugins/container';
 import flex from './src/plugins/flex';
 import grid from './src/plugins/grid';
 import item from './src/plugins/item';
 
-export default postcss.plugin('postcss-layouts', (options = {}) => {
+export default (options = {}) => {
 	const config = {
 		screens: {
 			sm: '640px',
@@ -51,9 +49,10 @@ export default postcss.plugin('postcss-layouts', (options = {}) => {
 		},
 		...options,
 	};
-
-	return (css) => {
-		css.walkAtRules((atRule) => {
+	return {
+		postcssPlugin: 'postcss-layouts',
+		AtRule(atRule, test) {
+			console.log('TEST 123', test);
 			if (atRule.name === 'layouts') {
 				const rules = [...container(config), ...flex(config), ...grid(config), ...item(config)];
 
@@ -63,6 +62,8 @@ export default postcss.plugin('postcss-layouts', (options = {}) => {
 
 				atRule.remove();
 			}
-		});
+		},
 	};
-});
+};
+
+export const postcss = true;

@@ -11,9 +11,6 @@
 	"bugs": {
 		"url": "https://github.com/webtides/layouts/issues"
 	},
-	"dependencies": {
-		"postcss": "^7.0.32"
-	},
 	"devDependencies": {
 		"eslint": "^7.4.0",
 		"eslint-config-prettier": "^6.11.0",
@@ -24,6 +21,9 @@
 		"rollup": "^2.20.0",
 		"rollup-plugin-commonjs": "^10.1.0",
 		"rollup-plugin-node-resolve": "^5.2.0"
+	},
+	"peerDependencies": {
+		"postcss": "^8.2.4"
 	},
 	"husky": {
 		"hooks": {
