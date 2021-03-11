@@ -17,15 +17,10 @@ Declarative layout elements for HTML & CSS
 
 #### Installation
 
-create a `.npmrc` file in your project root and add the following line to set the registry for packages in the `@webtides` scope. 
-```sh
-@webtides:registry=https://npm.pkg.github.com/
-```                                                                  
-
 install `@webtides/layouts`
 
 ```sh
-npm install --save @webtides/element-js
+npm install --save @webtides/layouts
 ```
 
 #### Use
