@@ -47,19 +47,25 @@ With `layouts` we can easily write this declaratively.
 
 ### Installation
 
-1. Normally you would install `layouts` via npm:
+1. Normally you would install `@webtides/layouts` via npm:
 
 ```sh
 npm install @webtides/layouts
 ```
 
-2. Add `layouts` to your `postcss.config.js` file
+2. Since PostCSS v8 you will also have to install `postcss` as it is no longer bundled with each plugin.
+
+```sh
+npm install postcss
+```
+
+2. Add `@webtides/layouts` to your `postcss.config.js` file
 
 ```javascript
 module.exports = {
     plugins: [
         // ...
-        require('@webtides/layouts')({
+        require('@webtides/layouts').default({
             //config
         }),
         require('autoprefixer')
@@ -131,7 +137,7 @@ module.exports = {
                 },
                 item: { selector: 'item' }
             }
-        }),
+        })
         // ...
     ]
 };
@@ -139,10 +145,7 @@ module.exports = {
 
 ### Is it ok to use unknown html elements?
 
-We think so! Since the addition of custom-elements HTML will be valid not only for the initial elements added by 
-the HTML5 spec, but also for any other elements. The browser will fallback for any unknown element to the HTMLUnknownElement.
-The HTMLUnknownElement is noting more or less than a HTMLDivElement. So it should be equally safe to use `container`, 
-`flex`, `grid` and `item` as any other `div`.
+We think so! Since the addition of custom-elements HTML will be valid not only for the initial elements added by the HTML5 spec, but also for any other elements. The browser will fallback for any unknown element to the HTMLUnknownElement. The HTMLUnknownElement is noting more or less than a HTMLDivElement. So it should be equally safe to use `container`, `flex`, `grid` and `item` as any other `div`.
 
 If you still have concerns about using `@webtides/layouts` like this - you can of course change them to something else.
 
@@ -153,15 +156,15 @@ module.exports = {
         require('@webtides/layouts')({
             plugins: {
                 container: {
-                    selector: '.container',
+                    selector: '.container'
                 },
                 flex: { selector: '.flex' },
                 grid: {
-                    selector: '.grid',
+                    selector: '.grid'
                 },
                 item: { selector: '.item' }
             }
-        }),
+        })
         // ...
     ]
 };
@@ -178,15 +181,15 @@ module.exports = {
         require('@webtides/layouts')({
             plugins: {
                 container: {
-                    selector: '[layout=container]',
+                    selector: '[layout=container]'
                 },
                 flex: { selector: '[layout=flex]' },
                 grid: {
-                    selector: '[layout=grid]',
+                    selector: '[layout=grid]'
                 },
                 item: { selector: '[layout=item]' }
             }
-        }),
+        })
         // ...
     ]
 };

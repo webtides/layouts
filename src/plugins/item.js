@@ -2,7 +2,7 @@ import createMediaAtRule from '../util/createMediaAtRule';
 import createRules from '../util/createRules';
 import rulesFromDefinitions from '../util/rulesFromDefinitions';
 
-export default (config) => {
+export default (config, postcss) => {
 	const selector = config.plugins && config.plugins.item ? config.plugins.item.selector : 'item';
 
 	const definitions = {
@@ -115,12 +115,12 @@ export default (config) => {
 		// ...createRules([
 		//     { selector: selector, prop: 'display', value: 'block' },
 		// ]),
-		...rulesFromDefinitions(definitions, selector),
+		...rulesFromDefinitions(definitions, selector, undefined, postcss),
 	];
 
 	for (let [name, size] of Object.entries(config.screens)) {
-		const mediaAtRule = createMediaAtRule('min-width', size);
-		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name));
+		const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name, postcss));
 		rules.push(mediaAtRule);
 	}
 

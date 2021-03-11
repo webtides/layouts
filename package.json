@@ -1,18 +1,26 @@
 {
 	"name": "@webtides/layouts",
-	"version": "0.5.2",
+	"version": "0.6.0",
 	"description": "Declarative layout elements for HTML & CSS",
 	"author": "@webtides",
 	"license": "MIT",
-	"main": "dist/cjs/index.js",
-	"module": "dist/es/index.js",
+	"main": "./dist/cjs/index.js",
+	"module": "./index.js",
+	"exports": {
+		"browser": "./dist/layouts.css",
+		"require": "./dist/cjs/index.js",
+		"import": "./index.js",
+		"default": "./index.js"
+	},
+	"files": [
+		"/dist",
+		"/src",
+		"index.js"
+	],
 	"homepage": "https://github.com/webtides/layouts#readme",
 	"repository": "https://github.com/webtides/layouts.git",
 	"bugs": {
 		"url": "https://github.com/webtides/layouts/issues"
-	},
-	"dependencies": {
-		"postcss": "^7.0.32"
 	},
 	"devDependencies": {
 		"eslint": "^7.4.0",
@@ -20,10 +28,13 @@
 		"eslint-plugin-prettier": "^3.1.4",
 		"husky": "^4.2.5",
 		"lint-staged": "^10.2.11",
+		"postcss": "^8.2.8",
+		"postcss-cli": "^8.3.1",
 		"prettier": "^2.0.5",
-		"rollup": "^2.20.0",
-		"rollup-plugin-commonjs": "^10.1.0",
-		"rollup-plugin-node-resolve": "^5.2.0"
+		"rollup": "^2.20.0"
+	},
+	"peerDependencies": {
+		"postcss": "^8.2.8"
 	},
 	"husky": {
 		"hooks": {
@@ -31,9 +42,11 @@
 		}
 	},
 	"scripts": {
-		"prepare": "rollup -c",
 		"dev": "rollup -c -w",
-		"build": "rollup -c",
+		"build": "npm run build:js && npm run build:css",
+		"build:js": "rollup -c",
+		"build:css": "postcss layouts.css -o dist/layouts.css",
+		"prepare": "npm run build",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	}
 }

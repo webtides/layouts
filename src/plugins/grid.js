@@ -3,7 +3,7 @@ import createRules from '../util/createRules';
 import rulesFromDefinitions from '../util/rulesFromDefinitions';
 import createRule from '../util/createRule';
 
-export default (config) => {
+export default (config, postcss) => {
 	const pluginConfig = config.plugins && config.plugins.grid ? config.plugins.grid : undefined;
 	const selector = pluginConfig ? pluginConfig.selector : 'grid';
 
@@ -61,19 +61,22 @@ export default (config) => {
 
 	// create default rules
 	const rules = [
-		...createRules([
-			{
-				selector: selector,
-				properties: defaultRules,
-			},
-		]),
-		...rulesFromDefinitions(definitions, selector),
+		...createRules(
+			[
+				{
+					selector: selector,
+					properties: defaultRules,
+				},
+			],
+			postcss,
+		),
+		...rulesFromDefinitions(definitions, selector, undefined, postcss),
 	];
 
 	// create responsive rules for definitions
 	for (let [name, size] of Object.entries(config.screens)) {
-		const mediaAtRule = createMediaAtRule('min-width', size);
-		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name));
+		const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name, postcss));
 		rules.push(mediaAtRule);
 	}
 
@@ -86,8 +89,8 @@ export default (config) => {
 
 				// either viewport is a key from config.screens map - otherwise assume viewport is size in px
 				const size = config.screens[viewport] || viewport;
-				const mediaAtRule = createMediaAtRule('min-width', size);
-				mediaAtRule.append(createRule({ selector: selector, prop: 'grid-gap', value: value }));
+				const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+				mediaAtRule.append(createRule({ selector: selector, prop: 'grid-gap', value: value }, postcss));
 				rules.push(mediaAtRule);
 			}
 		}
