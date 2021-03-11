@@ -1,6 +1,4 @@
-import postcss from 'postcss';
-
-export default function createRule(rule) {
+export default function createRule(rule, postcss) {
 	// const newRule = postcss.rule({ selector: rule.selector });
 	// newRule.append({ prop: rule.prop, value: rule.value });
 	let newRule;

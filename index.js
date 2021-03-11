@@ -51,10 +51,9 @@ export default (options = {}) => {
 	};
 	return {
 		postcssPlugin: 'postcss-layouts',
-		AtRule(atRule, test) {
-			console.log('TEST 123', test);
+		AtRule(atRule, postcss) {
 			if (atRule.name === 'layouts') {
-				const rules = [...container(config), ...flex(config), ...grid(config), ...item(config)];
+				const rules = [...container(config, postcss), ...flex(config, postcss), ...grid(config, postcss), ...item(config, postcss)];
 
 				rules.forEach((rule) => {
 					atRule.parent.insertBefore(atRule, rule);

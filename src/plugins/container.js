@@ -3,7 +3,7 @@ import createRule from '../util/createRule';
 import createRules from '../util/createRules';
 import rulesFromDefinitions from '../util/rulesFromDefinitions';
 
-export default (config) => {
+export default (config, postcss) => {
 	const pluginConfig = config.plugins && config.plugins.container ? config.plugins.container : {};
 	const selector = pluginConfig ? pluginConfig.selector : 'container';
 
@@ -72,32 +72,35 @@ export default (config) => {
 
 	// create default rules
 	const rules = [
-		...createRules([
-			{
-				selector: selector,
-				properties: defaultRules,
-			},
-			{
-				selector: selector + '[reset]',
-				properties: [{ prop: 'max-width', value: 'initial' }],
-			},
-		]),
-		...rulesFromDefinitions(definitions, selector),
+		...createRules(
+			[
+				{
+					selector: selector,
+					properties: defaultRules,
+				},
+				{
+					selector: selector + '[reset]',
+					properties: [{ prop: 'max-width', value: 'initial' }],
+				},
+			],
+			postcss,
+		),
+		...rulesFromDefinitions(definitions, selector, undefined, postcss),
 	];
 
 	// should we fix the container's width to the current screen
 	if (pluginConfig.fixWidthToScreen === true) {
 		for (let [name, size] of Object.entries(config.screens)) {
-			const mediaAtRule = createMediaAtRule('min-width', size);
-			mediaAtRule.append(createRule({ selector: selector, prop: 'max-width', value: size }));
+			const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+			mediaAtRule.append(createRule({ selector: selector, prop: 'max-width', value: size }, postcss));
 			rules.push(mediaAtRule);
 		}
 	}
 
 	// create responsive rules for definitions with modifier
 	for (let [name, size] of Object.entries(config.screens)) {
-		const mediaAtRule = createMediaAtRule('min-width', size);
-		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name));
+		const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name, postcss));
 		rules.push(mediaAtRule);
 	}
 
@@ -110,9 +113,9 @@ export default (config) => {
 
 				// either viewport is a key from config.screens map - otherwise assume viewport is size in px
 				const size = config.screens[viewport] || viewport;
-				const mediaAtRule = createMediaAtRule('min-width', size);
-				mediaAtRule.append(createRule({ selector: selector, prop: 'padding-left', value: value }));
-				mediaAtRule.append(createRule({ selector: selector, prop: 'padding-right', value: value }));
+				const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+				mediaAtRule.append(createRule({ selector: selector, prop: 'padding-left', value: value }, postcss));
+				mediaAtRule.append(createRule({ selector: selector, prop: 'padding-right', value: value }, postcss));
 				rules.push(mediaAtRule);
 			}
 		}
@@ -123,9 +126,9 @@ export default (config) => {
 
 				// either viewport is a key from config.screens map - otherwise assume viewport is size in px
 				const size = config.screens[viewport] || viewport;
-				const mediaAtRule = createMediaAtRule('min-width', size);
-				mediaAtRule.append(createRule({ selector: selector, prop: 'margin-left', value: value }));
-				mediaAtRule.append(createRule({ selector: selector, prop: 'margin-right', value: value }));
+				const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+				mediaAtRule.append(createRule({ selector: selector, prop: 'margin-left', value: value }, postcss));
+				mediaAtRule.append(createRule({ selector: selector, prop: 'margin-right', value: value }, postcss));
 				rules.push(mediaAtRule);
 			}
 		}

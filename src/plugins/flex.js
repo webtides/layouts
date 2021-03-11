@@ -2,7 +2,7 @@ import createMediaAtRule from '../util/createMediaAtRule';
 import createRules from '../util/createRules';
 import rulesFromDefinitions from '../util/rulesFromDefinitions';
 
-export default (config) => {
+export default (config, postcss) => {
 	const selector = config.plugins && config.plugins.flex ? config.plugins.flex.selector : 'flex';
 
 	const definitions = {
@@ -31,17 +31,20 @@ export default (config) => {
 	};
 
 	const rules = [
-		...createRules([
-			{ selector: selector, prop: 'display', value: 'flex' },
-			{ selector: selector, prop: 'align-items', value: 'center' },
-			{ selector: selector, prop: 'justify-content', value: 'space-between' },
-		]),
-		...rulesFromDefinitions(definitions, selector),
+		...createRules(
+			[
+				{ selector: selector, prop: 'display', value: 'flex' },
+				{ selector: selector, prop: 'align-items', value: 'center' },
+				{ selector: selector, prop: 'justify-content', value: 'space-between' },
+			],
+			postcss,
+		),
+		...rulesFromDefinitions(definitions, selector, undefined, postcss),
 	];
 
 	for (let [name, size] of Object.entries(config.screens)) {
-		const mediaAtRule = createMediaAtRule('min-width', size);
-		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name));
+		const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name, postcss));
 		rules.push(mediaAtRule);
 	}
 
