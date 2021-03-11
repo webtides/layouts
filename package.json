@@ -1,17 +1,22 @@
 {
 	"name": "@webtides/layouts",
-	"version": "0.5.2",
+	"version": "0.6.0",
 	"description": "Declarative layout elements for HTML & CSS",
 	"author": "@webtides",
 	"license": "MIT",
-	"main": "dist/cjs/index.js",
-	"module": "index.js",
+	"main": "./dist/cjs/index.js",
+	"module": "./index.js",
 	"exports": {
-		"browser": "dist/layouts.css",
-		"require": "dist/cjs/index.js",
-		"import": "index.js",
-		"default": "index.js"
+		"browser": "./dist/layouts.css",
+		"require": "./dist/cjs/index.js",
+		"import": "./index.js",
+		"default": "./index.js"
 	},
+	"files": [
+		"/dist",
+		"/src",
+		"index.js"
+	],
 	"homepage": "https://github.com/webtides/layouts#readme",
 	"repository": "https://github.com/webtides/layouts.git",
 	"bugs": {
