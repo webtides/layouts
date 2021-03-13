@@ -84,6 +84,16 @@ module.exports = {
 
 Compile and bundle your CSS files. `layouts` is now ready to use in your HTML.
 
+### Using via CDN
+
+`@webtides/layouts` can be used via CDN. This is great for prototyping and testing out layouts real fast on tools like CodePen for example.
+
+```html
+<link href="https://unpkg.com/@webtides/layouts/dist/layouts.css" rel="stylesheet" />
+```
+
+> Please note that `@webtides/layouts` is highly configurable, and many features that make it really great are not possible when using it via CDN. This is only for prototyping.
+
 ## Configuration
 
 `@webtides/layouts` is highly configurable from the start. When adding `@webtides/layouts` to your `postcss.config.js` file you can pass in an object for configuration.

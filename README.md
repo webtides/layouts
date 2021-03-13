@@ -23,6 +23,14 @@ install `@webtides/layouts`
 npm install --save @webtides/layouts
 ```
 
+#### Using via CDN
+
+`@webtides/layouts` can be used via CDN. This is great for prototyping and testing out layouts real fast on tools like CodePen for example.
+
+```html
+<link href="https://unpkg.com/@webtides/layouts/dist/layouts.css" rel="stylesheet" />
+```
+
 #### Use
 
 Container layout:
