@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.6.1] - 2020-07-07
+
+### Added
+
+-   github publish workflow
+
 ## [0.6.0] - 2020-03-11
 
 ### Added
