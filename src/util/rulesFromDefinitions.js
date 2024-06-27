@@ -1,4 +1,4 @@
-import createRule from './createRule';
+import createRule from './createRule.js';
 
 export default function rulesFromDefinitions(definitions, selector, modifier, postcss) {
 	const rules = [];

@@ -1,7 +1,7 @@
-import container from './src/plugins/container';
-import flex from './src/plugins/flex';
-import grid from './src/plugins/grid';
-import item from './src/plugins/item';
+import container from './src/plugins/container.js';
+import flex from './src/plugins/flex.js';
+import grid from './src/plugins/grid.js';
+import item from './src/plugins/item.js';
 
 export default (options = {}) => {
 	const config = {

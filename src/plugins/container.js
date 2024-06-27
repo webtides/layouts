@@ -1,7 +1,7 @@
-import createMediaAtRule from '../util/createMediaAtRule';
-import createRule from '../util/createRule';
-import createRules from '../util/createRules';
-import rulesFromDefinitions from '../util/rulesFromDefinitions';
+import createMediaAtRule from '../util/createMediaAtRule.js';
+import createRule from '../util/createRule.js';
+import createRules from '../util/createRules.js';
+import rulesFromDefinitions from '../util/rulesFromDefinitions.js';
 
 export default (config, postcss) => {
 	const pluginConfig = config.plugins && config.plugins.container ? config.plugins.container : {};

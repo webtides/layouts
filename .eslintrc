@@ -1,8 +1,9 @@
 {
 	"root": true,
-	"extends": ["plugin:prettier/recommended"],
+	"extends": ["plugin:prettier/recommended", "plugin:import/recommended"],
 	"rules": {
-		"prettier/prettier": ["error", { "semi": true }]
+		"prettier/prettier": ["error", { "semi": true }],
+        "import/extensions": ["error", "always"]
 	},
 	"globals": {
 		"document": true,
@@ -12,8 +13,13 @@
 		"requestAnimationFrame": true
 	},
 	"parserOptions": {
-		"ecmaVersion": 2020,
-		"sourceType": "module"
+		"ecmaVersion": 2022,
+		"sourceType": "module",
+        "requireConfigFile": false,
+        "babelOptions": {
+            "babelrc": false,
+            "configFile": false
+        }
 	},
 	"env": {
 		"es6": true,

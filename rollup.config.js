@@ -1,4 +1,4 @@
-module.exports = [
+export default [
 	{
 		input: 'index.js',
 		external: ['path', 'fs'],

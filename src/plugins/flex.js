@@ -1,6 +1,6 @@
-import createMediaAtRule from '../util/createMediaAtRule';
-import createRules from '../util/createRules';
-import rulesFromDefinitions from '../util/rulesFromDefinitions';
+import createMediaAtRule from '../util/createMediaAtRule.js';
+import createRules from '../util/createRules.js';
+import rulesFromDefinitions from '../util/rulesFromDefinitions.js';
 
 export default (config, postcss) => {
 	const selector = config.plugins && config.plugins.flex ? config.plugins.flex.selector : 'flex';
