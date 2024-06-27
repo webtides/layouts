@@ -1,7 +1,5 @@
-const layouts = require('./dist/cjs/index.js').default;
+import layouts from './index.js';
 
-module.exports = {
-	plugins: [
-		layouts(),
-	],
-}
+export default {
+    plugins: [layouts()],
+};
