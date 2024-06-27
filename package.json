@@ -43,7 +43,7 @@
         "build": "npm run build:js && npm run build:css",
         "build:js": "rollup -c",
         "build:css": "postcss layouts.css -o dist/layouts.css",
-        "prepare": "husky",
+        "prepare": "npm run build",
         "test": "echo \"Error: no test specified\" && exit 1"
     }
 }
