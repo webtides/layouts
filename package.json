@@ -1,54 +1,54 @@
 {
-	"name": "@webtides/layouts",
-	"version": "0.6.1",
-	"description": "Declarative layout elements for HTML & CSS",
-	"author": "@webtides",
-	"license": "MIT",
-	"main": "./dist/cjs/index.js",
-	"module": "./index.js",
+    "name": "@webtides/layouts",
+    "version": "0.6.1",
+    "description": "Declarative layout elements for HTML & CSS",
+    "author": "@webtides",
+    "license": "MIT",
+    "main": "./dist/cjs/index.js",
+    "module": "./index.js",
     "type": "module",
-	"exports": {
-		"browser": "./dist/layouts.css",
-		"require": "./dist/cjs/index.js",
-		"import": "./index.js",
-		"default": "./index.js"
-	},
-	"files": [
-		"/dist",
-		"/src",
-		"index.js"
-	],
-	"homepage": "https://github.com/webtides/layouts#readme",
-	"repository": "https://github.com/webtides/layouts.git",
-	"bugs": {
-		"url": "https://github.com/webtides/layouts/issues"
-	},
-	"devDependencies": {
-		"eslint": "^8.57.0",
-		"eslint-config-prettier": "^6.15.0",
+    "exports": {
+        "browser": "./dist/layouts.css",
+        "require": "./dist/cjs/index.js",
+        "import": "./index.js",
+        "default": "./index.js"
+    },
+    "files": [
+        "/dist",
+        "/src",
+        "index.js"
+    ],
+    "homepage": "https://github.com/webtides/layouts#readme",
+    "repository": "https://github.com/webtides/layouts.git",
+    "bugs": {
+        "url": "https://github.com/webtides/layouts/issues"
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^6.15.0",
         "eslint-plugin-import": "^2.29.1",
-		"eslint-plugin-prettier": "^4.2.1",
-		"husky": "^4.3.8",
-		"lint-staged": "^10.2.11",
-		"postcss": "^8.4.38",
-		"postcss-cli": "^8.3.1",
-		"prettier": "^2.0.5",
-		"rollup": "^2.20.0"
-	},
-	"peerDependencies": {
-		"postcss": "^8.4.38"
-	},
-	"huskyNOT": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	},
-	"scripts": {
-		"dev": "rollup -c -w",
-		"build": "npm run build:js && npm run build:css",
-		"build:js": "rollup -c",
-		"build:css": "postcss layouts.css -o dist/layouts.css",
-		"prepare": "npm run build",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	}
+        "eslint-plugin-prettier": "^4.2.1",
+        "husky": "^4.3.8",
+        "lint-staged": "^10.2.11",
+        "postcss": "^8.4.38",
+        "postcss-cli": "^8.3.1",
+        "prettier": "^2.0.5",
+        "rollup": "^2.20.0"
+    },
+    "peerDependencies": {
+        "postcss": "^8.4.38"
+    },
+    "huskyNOT": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "scripts": {
+        "dev": "rollup -c -w",
+        "build": "npm run build:js && npm run build:css",
+        "build:js": "rollup -c",
+        "build:css": "postcss layouts.css -o dist/layouts.css",
+        "prepare": "npm run build",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
 }

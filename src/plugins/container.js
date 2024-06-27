@@ -4,135 +4,135 @@ import createRules from '../util/createRules.js';
 import rulesFromDefinitions from '../util/rulesFromDefinitions.js';
 
 export default (config, postcss) => {
-	const pluginConfig = config.plugins && config.plugins.container ? config.plugins.container : {};
-	const selector = pluginConfig ? pluginConfig.selector : 'container';
+    const pluginConfig = config.plugins && config.plugins.container ? config.plugins.container : {};
+    const selector = pluginConfig ? pluginConfig.selector : 'container';
 
-	// default rules for plugin
-	const defaultRules = [
-		{ prop: 'display', value: 'block' },
-		{ prop: 'width', value: '100%' },
-		{ prop: 'max-width', value: pluginConfig.maxWidth || '1440px' },
-	];
+    // default rules for plugin
+    const defaultRules = [
+        { prop: 'display', value: 'block' },
+        { prop: 'width', value: '100%' },
+        { prop: 'max-width', value: pluginConfig.maxWidth || '1440px' },
+    ];
 
-	// check if container should be centered automatically
-	if (pluginConfig.center === true) {
-		defaultRules.push({ prop: 'margin-left', value: 'auto' });
-		defaultRules.push({ prop: 'margin-right', value: 'auto' });
-	}
+    // check if container should be centered automatically
+    if (pluginConfig.center === true) {
+        defaultRules.push({ prop: 'margin-left', value: 'auto' });
+        defaultRules.push({ prop: 'margin-right', value: 'auto' });
+    }
 
-	// check if default gap is defined in config via plugins
-	if (pluginConfig && pluginConfig.defaults) {
-		const defaults = pluginConfig.defaults;
-		if (defaults.gap && defaults.gap.default) {
-			const defaultGap = defaults.gap.default;
-			defaultRules.push({ prop: 'padding-left', value: defaultGap });
-			defaultRules.push({ prop: 'padding-right', value: defaultGap });
-		}
-	}
+    // check if default gap is defined in config via plugins
+    if (pluginConfig && pluginConfig.defaults) {
+        const defaults = pluginConfig.defaults;
+        if (defaults.gap && defaults.gap.default) {
+            const defaultGap = defaults.gap.default;
+            defaultRules.push({ prop: 'padding-left', value: defaultGap });
+            defaultRules.push({ prop: 'padding-right', value: defaultGap });
+        }
+    }
 
-	// all possible attributes/modifiers for plugin
-	const definitions = {
-		gap: {},
-		reset: {},
-		width: {
-			contained: {
-				properties: [{ prop: 'max-width', value: pluginConfig.maxWidth || '1440px' }],
-			},
-			fluid: {
-				properties: [{ prop: 'max-width', value: '100%' }],
-			},
-			full: {
-				properties: [
-					{ prop: 'width', value: '100vw' },
-					{ prop: 'max-width', value: '100vw' },
-				],
-			},
-		},
-	};
+    // all possible attributes/modifiers for plugin
+    const definitions = {
+        gap: {},
+        reset: {},
+        width: {
+            contained: {
+                properties: [{ prop: 'max-width', value: pluginConfig.maxWidth || '1440px' }],
+            },
+            fluid: {
+                properties: [{ prop: 'max-width', value: '100%' }],
+            },
+            full: {
+                properties: [
+                    { prop: 'width', value: '100vw' },
+                    { prop: 'max-width', value: '100vw' },
+                ],
+            },
+        },
+    };
 
-	// for each gap definition...
-	for (let [key, value] of Object.entries(config.gap)) {
-		// add gap rules to definitions
-		definitions.gap[key] = {
-			properties: [
-				{ prop: 'padding-left', value: value },
-				{ prop: 'padding-right', value: value },
-			],
-		};
+    // for each gap definition...
+    for (let [key, value] of Object.entries(config.gap)) {
+        // add gap rules to definitions
+        definitions.gap[key] = {
+            properties: [
+                { prop: 'padding-left', value: value },
+                { prop: 'padding-right', value: value },
+            ],
+        };
 
-		// add reset rules (with negative gap values) to definitions
-		definitions.reset[key] = {
-			properties: [
-				{ prop: 'margin-left', value: '-' + value },
-				{ prop: 'margin-right', value: '-' + value },
-				{ prop: 'width', value: `calc(100% + ${value} + ${value})` },
-			],
-		};
-	}
+        // add reset rules (with negative gap values) to definitions
+        definitions.reset[key] = {
+            properties: [
+                { prop: 'margin-left', value: '-' + value },
+                { prop: 'margin-right', value: '-' + value },
+                { prop: 'width', value: `calc(100% + ${value} + ${value})` },
+            ],
+        };
+    }
 
-	// create default rules
-	const rules = [
-		...createRules(
-			[
-				{
-					selector: selector,
-					properties: defaultRules,
-				},
-				{
-					selector: selector + '[reset]',
-					properties: [{ prop: 'max-width', value: 'initial' }],
-				},
-			],
-			postcss,
-		),
-		...rulesFromDefinitions(definitions, selector, undefined, postcss),
-	];
+    // create default rules
+    const rules = [
+        ...createRules(
+            [
+                {
+                    selector: selector,
+                    properties: defaultRules,
+                },
+                {
+                    selector: selector + '[reset]',
+                    properties: [{ prop: 'max-width', value: 'initial' }],
+                },
+            ],
+            postcss,
+        ),
+        ...rulesFromDefinitions(definitions, selector, undefined, postcss),
+    ];
 
-	// should we fix the container's width to the current screen
-	if (pluginConfig.fixWidthToScreen === true) {
-		for (let [name, size] of Object.entries(config.screens)) {
-			const mediaAtRule = createMediaAtRule('min-width', size, postcss);
-			mediaAtRule.append(createRule({ selector: selector, prop: 'max-width', value: size }, postcss));
-			rules.push(mediaAtRule);
-		}
-	}
+    // should we fix the container's width to the current screen
+    if (pluginConfig.fixWidthToScreen === true) {
+        for (let [name, size] of Object.entries(config.screens)) {
+            const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+            mediaAtRule.append(createRule({ selector: selector, prop: 'max-width', value: size }, postcss));
+            rules.push(mediaAtRule);
+        }
+    }
 
-	// create responsive rules for definitions with modifier
-	for (let [name, size] of Object.entries(config.screens)) {
-		const mediaAtRule = createMediaAtRule('min-width', size, postcss);
-		mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name, postcss));
-		rules.push(mediaAtRule);
-	}
+    // create responsive rules for definitions with modifier
+    for (let [name, size] of Object.entries(config.screens)) {
+        const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+        mediaAtRule.append(...rulesFromDefinitions(definitions, selector, name, postcss));
+        rules.push(mediaAtRule);
+    }
 
-	// create responsive rules for defaults
-	if (config.plugins && config.plugins.container && config.plugins.container.defaults) {
-		const defaults = config.plugins.container.defaults;
-		if (defaults.gap) {
-			for (let [viewport, value] of Object.entries(defaults.gap)) {
-				if (viewport === 'default') continue;
+    // create responsive rules for defaults
+    if (config.plugins && config.plugins.container && config.plugins.container.defaults) {
+        const defaults = config.plugins.container.defaults;
+        if (defaults.gap) {
+            for (let [viewport, value] of Object.entries(defaults.gap)) {
+                if (viewport === 'default') continue;
 
-				// either viewport is a key from config.screens map - otherwise assume viewport is size in px
-				const size = config.screens[viewport] || viewport;
-				const mediaAtRule = createMediaAtRule('min-width', size, postcss);
-				mediaAtRule.append(createRule({ selector: selector, prop: 'padding-left', value: value }, postcss));
-				mediaAtRule.append(createRule({ selector: selector, prop: 'padding-right', value: value }, postcss));
-				rules.push(mediaAtRule);
-			}
-		}
+                // either viewport is a key from config.screens map - otherwise assume viewport is size in px
+                const size = config.screens[viewport] || viewport;
+                const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+                mediaAtRule.append(createRule({ selector: selector, prop: 'padding-left', value: value }, postcss));
+                mediaAtRule.append(createRule({ selector: selector, prop: 'padding-right', value: value }, postcss));
+                rules.push(mediaAtRule);
+            }
+        }
 
-		if (defaults.reset) {
-			for (let [viewport, value] of Object.entries(defaults.reset)) {
-				if (viewport === 'default') continue;
+        if (defaults.reset) {
+            for (let [viewport, value] of Object.entries(defaults.reset)) {
+                if (viewport === 'default') continue;
 
-				// either viewport is a key from config.screens map - otherwise assume viewport is size in px
-				const size = config.screens[viewport] || viewport;
-				const mediaAtRule = createMediaAtRule('min-width', size, postcss);
-				mediaAtRule.append(createRule({ selector: selector, prop: 'margin-left', value: value }, postcss));
-				mediaAtRule.append(createRule({ selector: selector, prop: 'margin-right', value: value }, postcss));
-				rules.push(mediaAtRule);
-			}
-		}
-	}
+                // either viewport is a key from config.screens map - otherwise assume viewport is size in px
+                const size = config.screens[viewport] || viewport;
+                const mediaAtRule = createMediaAtRule('min-width', size, postcss);
+                mediaAtRule.append(createRule({ selector: selector, prop: 'margin-left', value: value }, postcss));
+                mediaAtRule.append(createRule({ selector: selector, prop: 'margin-right', value: value }, postcss));
+                rules.push(mediaAtRule);
+            }
+        }
+    }
 
-	return rules;
+    return rules;
 };
