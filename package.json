@@ -1,6 +1,6 @@
 {
     "name": "@webtides/layouts",
-    "version": "0.6.1",
+    "version": "0.7.0",
     "description": "Declarative layout elements for HTML & CSS",
     "author": "@webtides",
     "license": "MIT",
